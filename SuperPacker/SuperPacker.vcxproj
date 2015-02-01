@@ -12,9 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="modules\Controller\FileSystemController.cpp" />
     <ClCompile Include="modules\Controller\ProgramController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="modules\Controller\FileSystemController.h" />
     <ClInclude Include="modules\Controller\ProgramController.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

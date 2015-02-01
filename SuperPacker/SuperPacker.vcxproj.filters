@@ -21,9 +21,15 @@
     <ClCompile Include="modules\Controller\ProgramController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="modules\Controller\FileSystemController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="modules\Controller\ProgramController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="modules\Controller\FileSystemController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,7 @@
 #include "ProgramController.h"
 #include "FileSystemController.h"
+#include "FileController.h"
+
 void ProgramController::ListAvailableCommand()
 {
 	std::cout << "SuperPacker command line syntax" << std::endl;
@@ -15,6 +17,16 @@ void ProgramController::ListAvailableCommand()
 }
 void ProgramController::CreateProject(std::string projectName)
 {
-	std::cout << "Project " << projectName << " has been created" << std::endl;
 	FileSystemController::CreateFile(projectName);
+	FileController projectSettingsFile(projectName);
+	if (projectSettingsFile.IsFileOpen())
+	{
+		std::cout << "[SUCCESS] Project \"" << projectName << "\" settings file has been created" << std::endl;
+		projectSettingsFile.AddLineOfTextToFile(projectName);
+	}
+	else
+	{
+		std::cout << "[FAIL] Project " << projectName << " settings file hasn't been created" << std::endl;
+		return;
+	}
 }

@@ -14,7 +14,7 @@ FileController::~FileController()
 }
 void FileController::AddLineOfTextToFile(std::string lineOfText)
 {
-	file << lineOfText;
+	file << lineOfText << std::endl;
 }
 bool FileController::IsFileOpen()
 {

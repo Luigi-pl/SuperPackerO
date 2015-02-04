@@ -23,6 +23,9 @@ void ProgramController::CreateProject(std::string projectName)
 	{
 		std::cout << "[SUCCESS] Project \"" << projectName << "\" settings file has been created" << std::endl;
 		projectSettingsFile.AddLineOfTextToFile(projectName);
+		projectSettingsFile.AddLineOfTextToFile("WinRAR"); //for now program can only use WinRAR to pack files (it will be changed)
+		projectSettingsFile.AddLineOfTextToFile("1");	//Record number of next archive
+		projectSettingsFile.AddLineOfTextToFile("0");	//number of files to add to archive
 	}
 	else
 	{

@@ -13,5 +13,9 @@ public:
 	create %p - create project (%p) settings file
 	*/
 	static void CreateProject(std::string);
+	/*Implementation of console command:
+	list %p - show project (%p) settings file
+	*/
+	static void ListProject(std::string);
 };
 

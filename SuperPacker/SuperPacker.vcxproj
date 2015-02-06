@@ -15,11 +15,13 @@
     <ClCompile Include="modules\Controller\FileController.cpp" />
     <ClCompile Include="modules\Controller\FileSystemController.cpp" />
     <ClCompile Include="modules\Controller\ProgramController.cpp" />
+    <ClCompile Include="modules\Data\ProjectSettings.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="modules\Controller\FileController.h" />
     <ClInclude Include="modules\Controller\FileSystemController.h" />
     <ClInclude Include="modules\Controller\ProgramController.h" />
+    <ClInclude Include="modules\Data\ProjectSettings.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{456C4BF3-026E-48E3-AEA8-83414F56957C}</ProjectGuid>

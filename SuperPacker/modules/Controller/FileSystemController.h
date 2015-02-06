@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+/*Class responsible for controlling file system*/
 class FileSystemController
 {
 public:

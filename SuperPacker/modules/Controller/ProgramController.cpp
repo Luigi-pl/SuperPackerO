@@ -1,6 +1,7 @@
 #include "ProgramController.h"
 #include "FileSystemController.h"
 #include "FileController.h"
+#include "../Data/ProjectSettings.h"
 
 void ProgramController::ListAvailableCommand()
 {
@@ -18,18 +19,39 @@ void ProgramController::ListAvailableCommand()
 void ProgramController::CreateProject(std::string projectName)
 {
 	FileSystemController::CreateFile(projectName);
-	FileController projectSettingsFile(projectName);
+	FileController projectSettingsFile(projectName, true);
 	if (projectSettingsFile.IsFileOpen())
 	{
+		ProjectSettings projectSettings(projectName, "WinRAR", 1, 0, std::vector<std::string>());
 		std::cout << "[SUCCESS] Project \"" << projectName << "\" settings file has been created" << std::endl;
-		projectSettingsFile.AddLineOfTextToFile(projectName);
-		projectSettingsFile.AddLineOfTextToFile("WinRAR"); //for now program can only use WinRAR to pack files (it will be changed)
-		projectSettingsFile.AddLineOfTextToFile("1");	//Record number of next archive
-		projectSettingsFile.AddLineOfTextToFile("0");	//number of files to add to archive
+		projectSettingsFile.SaveProjectSettingsToFile(projectSettings);
 	}
 	else
 	{
 		std::cout << "[FAIL] Project " << projectName << " settings file hasn't been created" << std::endl;
 		return;
+	}
+}
+void ProgramController::ListProject(std::string projectName)
+{
+	FileController projectSettingsFile(projectName, false);
+	if (projectSettingsFile.IsFileOpen() && projectSettingsFile.IsFileCorrect())
+	{
+		ProjectSettings projectSettings = projectSettingsFile.LoadProjectSettingsFromFile();
+		std::cout << "Project name: " << projectSettings.getProjectName() << std::endl;
+		std::cout << "Archiver: " << projectSettings.getArchiver() << std::endl << std::endl;
+
+		std::cout << "Record number: " << projectSettings.getRecordNumber() << std::endl << std::endl;
+
+		std::cout << "Number of files: " << projectSettings.getNumberOfFile() << std::endl;
+		std::cout << "Files: " << std::endl;
+		for (int i = 0; i < projectSettings.getNumberOfFile(); i++)
+		{
+			std::cout << i + 1 << " " << projectSettings.getFileFromList(i);
+		}
+	}
+	else
+	{
+		std::cout << "[FAIL] Project " << projectName << " settings file doesn't exist" << std::endl;
 	}
 }

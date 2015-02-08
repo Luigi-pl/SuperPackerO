@@ -8,27 +8,32 @@ ProjectSettings::ProjectSettings(std::string projectName, std::string archiver, 
 	this->numberOfFile = numberOfFile;
 	this->listOfFile = listOfFile;
 }
-std::string ProjectSettings::getProjectName()
+std::string ProjectSettings::GetProjectName()
 {
 	return projectName;
 }
-std::string ProjectSettings::getArchiver()
+std::string ProjectSettings::GetArchiver()
 {
 	return archiver;
 }
-int ProjectSettings::getRecordNumber()
+int ProjectSettings::GetRecordNumber()
 {
 	return recordNumber;
 }
-int ProjectSettings::getNumberOfFile()
+int ProjectSettings::GetNumberOfFile()
 {
 	return numberOfFile;
 }
-std::vector<std::string> ProjectSettings::getListOfFile()
+std::vector<std::string> ProjectSettings::GetListOfFile()
 {
 	return listOfFile;
 }
-std::string ProjectSettings::getFileFromList(int i)
+std::string ProjectSettings::GetFileFromList(int i)
 {
 	return listOfFile.at(i);
+}
+void ProjectSettings::AddFileToListOfFile(std::string fileToAdd)
+{
+	listOfFile.push_back(fileToAdd);
+	numberOfFile++;
 }

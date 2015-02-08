@@ -1,37 +1,47 @@
 #include "FileController.h"
 #include "../Data/ProjectSettings.h"
 
-FileController::FileController(std::string fileToOpen, bool toWrite)
+FileController::FileController(std::string fileNameToOpen, bool toWrite = false)
 {
+	isWriting = toWrite;
+	fileName = fileNameToOpen;
 	if (toWrite)
 	{
-		file.open((fileToOpen + ".txt").c_str(), std::fstream::trunc | std::fstream::out);
+		OpenFileToWrite(fileNameToOpen);
 	}
 	else
 	{
-		file.open((fileToOpen + ".txt").c_str(), std::fstream::in);
+		OpenFileToRead(fileNameToOpen);
 	}
 	
 }
 FileController::~FileController()
 {
-	if (file.is_open())
-	{
-		file.close();
-	}
+	CloseFile();
 }
 void FileController::SaveProjectSettingsToFile(ProjectSettings projectSettings)
 {
-	AddLineOfTextToFile(projectSettings.getProjectName());
-	AddLineOfTextToFile(projectSettings.getArchiver());
-	AddLineOfTextToFile(projectSettings.getRecordNumber());
-	AddLineOfTextToFile(projectSettings.getNumberOfFile());
-	if (projectSettings.getNumberOfFile() > 0)
+	AddLineOfTextToFile("\"" + projectSettings.GetProjectName() + "\"");
+	AddLineOfTextToFile("\"" + projectSettings.GetArchiver() + "\"");
+	AddLineOfTextToFile(projectSettings.GetRecordNumber());
+	AddLineOfTextToFile(projectSettings.GetNumberOfFile());
+	if (projectSettings.GetNumberOfFile() > 0)
 	{
-		for (int i = 0; i < projectSettings.getNumberOfFile(); i++)
+		for (int i = 0; i < projectSettings.GetNumberOfFile(); i++)
 		{
-			AddLineOfTextToFile(projectSettings.getFileFromList(i));
+			AddLineOfTextToFile("\"" + projectSettings.GetFileFromList(i) + "\"");
 		}
+	}
+}
+void FileController::ChangeMode()
+{
+	if (isWriting)
+	{
+		ChangeModeFromWriteToRead();
+	}
+	else
+	{
+		ChangeModeFromReadToWrite();
 	}
 }
 ProjectSettings FileController::LoadProjectSettingsFromFile()
@@ -44,12 +54,20 @@ ProjectSettings FileController::LoadProjectSettingsFromFile()
 	std::vector<std::string> listOfFile;
 
 	projectName = GetLineOfTextFromFile();
+	projectName.erase(0, 1);
+	projectName.erase(projectName.length() - 1, 1);
+
 	archiver = GetLineOfTextFromFile();
+	archiver.erase(0, 1);
+	archiver.erase(archiver.length() - 1, 1);
+
 	recordNumber = GetNumberFromFile();
 	numberOfFile = GetNumberFromFile();
 	for (int i = 0; i < numberOfFile; i++)
 	{
 		file = GetLineOfTextFromFile();
+		file.erase(0, 1);
+		file.erase(file.length() - 1, 1);
 		listOfFile.push_back(file);
 	}
 	return ProjectSettings(projectName, archiver, recordNumber, numberOfFile, listOfFile);
@@ -107,4 +125,29 @@ int FileController::GetNumberFromFile()
 		file >> number;
 		return number;
 	}
+}
+void FileController::OpenFileToRead(std::string fileNameToOpen)
+{
+	CloseFile();
+	file.open((fileNameToOpen + ".txt").c_str(), std::fstream::in);
+}
+void FileController::OpenFileToWrite(std::string fileNameToOpen)
+{
+	CloseFile();
+	file.open((fileNameToOpen + ".txt").c_str(), std::fstream::trunc | std::fstream::out);
+}
+void FileController::CloseFile()
+{
+	if (file.is_open())
+	{
+		file.close();
+	}
+}
+void FileController::ChangeModeFromWriteToRead()
+{
+	OpenFileToRead(fileName);
+}
+void FileController::ChangeModeFromReadToWrite()
+{
+	OpenFileToWrite(fileName);
 }

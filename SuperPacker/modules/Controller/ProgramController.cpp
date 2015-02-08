@@ -38,20 +38,34 @@ void ProgramController::ListProject(std::string projectName)
 	if (projectSettingsFile.IsFileOpen() && projectSettingsFile.IsFileCorrect())
 	{
 		ProjectSettings projectSettings = projectSettingsFile.LoadProjectSettingsFromFile();
-		std::cout << "Project name: " << projectSettings.getProjectName() << std::endl;
-		std::cout << "Archiver: " << projectSettings.getArchiver() << std::endl << std::endl;
+		std::cout << "Project name: " << projectSettings.GetProjectName() << std::endl;
+		std::cout << "Archiver: " << projectSettings.GetArchiver() << std::endl << std::endl;
 
-		std::cout << "Record number: " << projectSettings.getRecordNumber() << std::endl << std::endl;
+		std::cout << "Record number: " << projectSettings.GetRecordNumber() << std::endl << std::endl;
 
-		std::cout << "Number of files: " << projectSettings.getNumberOfFile() << std::endl;
+		std::cout << "Number of files: " << projectSettings.GetNumberOfFile() << std::endl;
 		std::cout << "Files: " << std::endl;
-		for (int i = 0; i < projectSettings.getNumberOfFile(); i++)
+		for (int i = 0; i < projectSettings.GetNumberOfFile(); i++)
 		{
-			std::cout << i + 1 << " " << projectSettings.getFileFromList(i);
+			std::cout << i + 1 << " " << projectSettings.GetFileFromList(i);
 		}
 	}
 	else
 	{
 		std::cout << "[FAIL] Project " << projectName << " settings file doesn't exist" << std::endl;
 	}
+}
+void ProgramController::AddFileToProject(std::string projectName, std::string fileToAdd)
+{
+	FileController projectSettingsFile(projectName, false);
+	
+	if (projectSettingsFile.IsFileOpen() && projectSettingsFile.IsFileCorrect())
+	{
+		ProjectSettings projectSettings = projectSettingsFile.LoadProjectSettingsFromFile();
+		projectSettings.AddFileToListOfFile(fileToAdd);
+
+		projectSettingsFile.ChangeMode();
+		projectSettingsFile.SaveProjectSettingsToFile(projectSettings);
+	}
+
 }

@@ -5,32 +5,46 @@
 int main(int __argc, char *__argv[])
 {
 	std::string command;
+	std::string projectName;
 	if (__argc > 1)
 	{
 		command = std::string(__argv[1]);
 	}
-	if (__argc == 1)
+	if (__argc > 2)
 	{
-		ProgramController::ListAvailableCommand();
+		projectName = std::string(__argv[2]);
 	}
-	else if (__argc == 2)
+
+	switch (__argc)
 	{
-		if (command.compare("help")==0)
+	case 1:
+		ProgramController::ListAvailableCommand();
+		break;
+	case 2:
+		if (command.compare("help") == 0)
 		{
 			ProgramController::ListAvailableCommand();
-		} 
-	}
-	else if (__argc == 3)
-	{
-		std::string projectName = std::string(__argv[2]);
-		if (command.compare("create")==0)
+		}
+		break;
+	case 3:
+		
+		if (command.compare("create") == 0)
 		{
 			ProgramController::CreateProject(projectName);
 		}
-		else if (command.compare("list")==0)
+		else if (command.compare("list") == 0)
 		{
 			ProgramController::ListProject(projectName);
 		}
+		break;
+	case 4:
+		if (command.compare("add-file") == 0)
+		{
+			ProgramController::AddFileToProject(projectName, std::string(__argv[3]));
+		}
+		break;
+	default:
+		break;
 	}
 	return 0;
 }

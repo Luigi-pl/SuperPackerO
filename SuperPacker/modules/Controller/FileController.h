@@ -22,6 +22,10 @@ public:
 	bool IsFileOpen();
 	/*Method checks if file has correct structure*/
 	bool IsFileCorrect();
+
+	/*Method changes mode write->read/read->write*/
+	void ChangeMode();
+
 private:
 	template <class T>
 	/*Method adds line of text into file*/
@@ -30,7 +34,20 @@ private:
 	std::string GetLineOfTextFromFile();
 	/*Method loads number from file*/
 	int GetNumberFromFile();
+	
+	/*Method opens file to read*/
+	void OpenFileToRead(std::string);
+	/*Method opens file to write*/
+	void OpenFileToWrite(std::string);
+	/*Method closes file*/
+	void CloseFile();
+	/*Method changes mode from writing to reading*/
+	void ChangeModeFromWriteToRead();
+	/*Method changes mode from reading to writing*/
+	void ChangeModeFromReadToWrite();
 
 	std::fstream file;
+	std::string fileName;
+	bool isWriting;
 };
 

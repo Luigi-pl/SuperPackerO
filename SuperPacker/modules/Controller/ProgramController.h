@@ -17,5 +17,9 @@ public:
 	list %p - show project (%p) settings file
 	*/
 	static void ListProject(std::string);
+	/*Implementation of console command:
+	add-file %p %f - add file (%f) to project (%p) settings file
+	*/
+	static void AddFileToProject(std::string, std::string);
 };
 

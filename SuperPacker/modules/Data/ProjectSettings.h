@@ -7,18 +7,21 @@ class ProjectSettings
 public:
 	ProjectSettings(std::string, std::string, int, int, std::vector<std::string>);
 	/*Method returns project name*/
-	std::string getProjectName();
+	std::string GetProjectName();
 	/*Method returns archiver used by project*/
-	std::string getArchiver();
+	std::string GetArchiver();
 	/*Method returns project's record number*/
-	int getRecordNumber();
+	int GetRecordNumber();
 	/*Method returns number of file to pack*/
-	int getNumberOfFile();
+	int GetNumberOfFile();
 	/*Method returns list of file's path to pack*/
-	std::vector<std::string> getListOfFile();
+	std::vector<std::string> GetListOfFile();
 	/*Method returns single file's path */
-	std::string getFileFromList(int);
+	std::string GetFileFromList(int);
 
+	/*Method adds file's path to list of file*/
+	void AddFileToListOfFile(std::string);
+	
 private:
 	std::string projectName;
 	std::string archiver;

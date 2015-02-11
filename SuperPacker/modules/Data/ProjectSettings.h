@@ -21,6 +21,9 @@ public:
 
 	/*Method adds file's path to list of file*/
 	void AddFileToListOfFile(std::string);
+	/*Method removes file's path from list of file. 
+	Return true if file's path was deleted from list */
+	bool RemoveFileFromListOfFile(std::string);
 	
 private:
 	std::string projectName;

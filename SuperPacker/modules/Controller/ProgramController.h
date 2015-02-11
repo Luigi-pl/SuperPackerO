@@ -21,5 +21,9 @@ public:
 	add-file %p %f - add file (%f) to project (%p) settings file
 	*/
 	static void AddFileToProject(std::string, std::string);
+	/*Implementation of console command:
+	remove-file %p %f - remove file (%f) from project (%p) settings file
+	*/
+	static void RemoveFileFromProject(std::string, std::string);
 };
 

@@ -27,7 +27,6 @@ int main(int __argc, char *__argv[])
 		}
 		break;
 	case 3:
-		
 		if (command.compare("create") == 0)
 		{
 			ProgramController::CreateProject(projectName);
@@ -41,6 +40,10 @@ int main(int __argc, char *__argv[])
 		if (command.compare("add-file") == 0)
 		{
 			ProgramController::AddFileToProject(projectName, std::string(__argv[3]));
+		}
+		else if (command.compare("remove-file") == 0)
+		{
+			ProgramController::RemoveFileFromProject(projectName, std::string(__argv[3]));
 		}
 		break;
 	default:

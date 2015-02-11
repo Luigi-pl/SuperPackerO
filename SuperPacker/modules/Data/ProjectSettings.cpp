@@ -37,3 +37,18 @@ void ProjectSettings::AddFileToListOfFile(std::string fileToAdd)
 	listOfFile.push_back(fileToAdd);
 	numberOfFile++;
 }
+bool ProjectSettings::RemoveFileFromListOfFile(std::string fileToRemove)
+{
+
+	for (int i = 0; i < numberOfFile; i++)
+	{
+		if (listOfFile[i].length() == fileToRemove.length() &&
+			listOfFile[i].find(fileToRemove.c_str(), 0, listOfFile[i].length()) != std::string::npos)
+		{
+			listOfFile.erase(listOfFile.begin()+i);
+			numberOfFile--;
+			return true;
+		}
+	}
+	return false;
+}

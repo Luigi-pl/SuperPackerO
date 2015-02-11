@@ -12,8 +12,11 @@ void ProgramController::ListAvailableCommand()
 	std::cout << std::endl << std::endl;
 
 	std::cout << "List of available command with parameters:" << std::endl;
-	std::cout << " create p - create project file p" << std::endl;
 	std::cout << " help - show list of available command" << std::endl;
+	std::cout << " create p - create project settings file p" << std::endl;
+	std::cout << " list p - show project settings file p" << std::endl;
+	std::cout << " add-file %p %f - add file f to project settings file p" << std::endl;
+	std::cout << " remove-file %p %f - remove file f from project settings file p" << std::endl;
 	/*std::cout << "" << std::endl;*/
 }
 void ProgramController::CreateProject(std::string projectName)
@@ -68,4 +71,17 @@ void ProgramController::AddFileToProject(std::string projectName, std::string fi
 		projectSettingsFile.SaveProjectSettingsToFile(projectSettings);
 	}
 
+}
+void ProgramController::RemoveFileFromProject(std::string projectName, std::string fileToRemove)
+{
+	FileController projectSettingsFile(projectName, false);
+
+	if (projectSettingsFile.IsFileOpen() && projectSettingsFile.IsFileCorrect())
+	{
+		ProjectSettings projectSettings = projectSettingsFile.LoadProjectSettingsFromFile();
+		projectSettings.RemoveFileFromListOfFile(fileToRemove);
+
+		projectSettingsFile.ChangeMode();
+		projectSettingsFile.SaveProjectSettingsToFile(projectSettings);
+	}
 }

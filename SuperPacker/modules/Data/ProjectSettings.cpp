@@ -32,6 +32,10 @@ std::string ProjectSettings::GetFileFromList(int i)
 {
 	return listOfFile.at(i);
 }
+void ProjectSettings::ChangeProjectName(std::string newProjectName)
+{
+	projectName = newProjectName;
+}
 void ProjectSettings::AddFileToListOfFile(std::string fileToAdd)
 {
 	listOfFile.push_back(fileToAdd);

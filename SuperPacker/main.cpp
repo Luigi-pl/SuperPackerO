@@ -45,6 +45,10 @@ int main(int __argc, char *__argv[])
 		{
 			ProgramController::RemoveFileFromProject(projectName, std::string(__argv[3]));
 		}
+		else if (command.compare("rename") == 0)
+		{
+			ProgramController::ChangeProjectName(projectName, std::string(__argv[3]));
+		}
 		break;
 	default:
 		break;

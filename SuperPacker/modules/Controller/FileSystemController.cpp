@@ -6,3 +6,9 @@ void FileSystemController::CreateFile(std::string fileToCreate)
 	stream << "";
 	stream.close();
 }
+bool FileSystemController::RenameFile(std::string oldFileName, std::string newFileName)
+{
+	if (rename( (oldFileName + ".txt").c_str(),
+				(newFileName + ".txt").c_str())) return true;
+	return false;
+}

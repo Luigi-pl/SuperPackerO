@@ -18,6 +18,8 @@ public:
 	std::vector<std::string> GetListOfFile();
 	/*Method returns single file's path */
 	std::string GetFileFromList(int);
+	/*Mehod changes project name*/
+	void ChangeProjectName(std::string);
 
 	/*Method adds file's path to list of file*/
 	void AddFileToListOfFile(std::string);

@@ -25,5 +25,9 @@ public:
 	remove-file %p %f - remove file (%f) from project (%p) settings file
 	*/
 	static void RemoveFileFromProject(std::string, std::string);
+	/*Implementation of console command:
+	rename %op %np - change project name (%od) to (%np)
+	*/
+	static void ChangeProjectName(std::string, std::string);
 };
 

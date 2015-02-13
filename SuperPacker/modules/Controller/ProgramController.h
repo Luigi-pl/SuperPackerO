@@ -29,5 +29,9 @@ public:
 	rename %op %np - change project name (%od) to (%np)
 	*/
 	static void ChangeProjectName(std::string, std::string);
+	/*Implementation of console command:
+	remove %p - remove project (%p) settings file
+	*/
+	static void RemoveProject(std::string);
 };
 

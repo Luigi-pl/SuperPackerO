@@ -17,7 +17,8 @@ void ProgramController::ListAvailableCommand()
 	std::cout << " list p - show project settings file p" << std::endl;
 	std::cout << " add-file %p %f - add file f to project settings file p" << std::endl;
 	std::cout << " remove-file %p %f - remove file f from project settings file p" << std::endl;
-	std::cout << " remove-file %op %np - change project name od to new project name np" << std::endl;
+	std::cout << " rename %op %np - change project name od to new project name np" << std::endl;
+	std::cout << " remove %p - remove project p settings file" << std::endl;
 	/*std::cout << "" << std::endl;*/
 }
 void ProgramController::CreateProject(std::string projectName)
@@ -89,17 +90,21 @@ void ProgramController::RemoveFileFromProject(std::string projectName, std::stri
 }
 void ProgramController::ChangeProjectName(std::string oldProjectName, std::string newProjectName)
 {
+	//TODO if success
 	FileSystemController::RenameFile(oldProjectName, newProjectName);
 
 	FileController projectSettingsFile(newProjectName, false);
 	if (projectSettingsFile.IsFileOpen() && projectSettingsFile.IsFileCorrect())
 	{
 		ProjectSettings projectSettings = projectSettingsFile.LoadProjectSettingsFromFile();
-		//TODO if success
 		projectSettings.ChangeProjectName(newProjectName);
 
 		projectSettingsFile.ChangeMode();
 		projectSettingsFile.SaveProjectSettingsToFile(projectSettings);
 	}
 
+}
+void ProgramController::RemoveProject(std::string projectName)
+{
+	FileSystemController::DeleteFile(projectName);
 }

@@ -12,3 +12,8 @@ bool FileSystemController::RenameFile(std::string oldFileName, std::string newFi
 				(newFileName + ".txt").c_str())) return true;
 	return false;
 }
+bool FileSystemController::DeleteFile(std::string fileToDelete)
+{
+	if (remove((fileToDelete + ".txt").c_str())) return true;
+	return false;
+}

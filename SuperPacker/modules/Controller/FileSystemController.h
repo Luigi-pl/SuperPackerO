@@ -11,5 +11,7 @@ public:
 	static void CreateFile(std::string);
 	/*Method renames file*/
 	static bool RenameFile(std::string, std::string);
+	/*Method deletes file*/
+	static bool DeleteFile(std::string);
 };
 

@@ -35,6 +35,10 @@ int main(int __argc, char *__argv[])
 		{
 			ProgramController::ListProject(projectName);
 		}
+		else if (command.compare("remove") == 0)
+		{
+			ProgramController::RemoveProject(projectName);
+		}
 		break;
 	case 4:
 		if (command.compare("add-file") == 0)

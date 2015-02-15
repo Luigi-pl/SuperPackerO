@@ -5,6 +5,7 @@
 #include <vector>
 
 class ProjectSettings;
+class ArchiverMap;
 /*Class responsible for controlling file*/
 class FileController
 {
@@ -18,6 +19,12 @@ public:
 	void SaveProjectSettingsToFile(ProjectSettings);
 	/*Method loads Project Settings from file*/
 	ProjectSettings LoadProjectSettingsFromFile();
+	
+	/*Method saves list of archivers into file*/
+	void SaveArchiverMapToFile(ArchiverMap);
+	/*Method loads list of archivers from file*/
+	ArchiverMap LoadArchiverMapFromFile();
+
 	/*Method checks is file open*/
 	bool IsFileOpen();
 	/*Method checks if file has correct structure*/
@@ -34,7 +41,7 @@ private:
 	std::string GetLineOfTextFromFile();
 	/*Method loads number from file*/
 	int GetNumberFromFile();
-	
+
 	/*Method opens file to read*/
 	void OpenFileToRead(std::string);
 	/*Method opens file to write*/

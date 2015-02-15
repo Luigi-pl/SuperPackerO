@@ -1,5 +1,6 @@
 #include "FileController.h"
 #include "../Data/ProjectSettings.h"
+#include "../Data/ArchiverMap.h"
 
 FileController::FileController(std::string fileNameToOpen, bool toWrite = false)
 {
@@ -13,7 +14,7 @@ FileController::FileController(std::string fileNameToOpen, bool toWrite = false)
 	{
 		OpenFileToRead(fileNameToOpen);
 	}
-	
+
 }
 FileController::~FileController()
 {
@@ -44,12 +45,34 @@ void FileController::ChangeMode()
 		ChangeModeFromReadToWrite();
 	}
 }
+void FileController::SaveArchiverMapToFile(ArchiverMap archiverMap)
+{
+	std::string archiver = archiverMap.NextArchiver();
+	while (archiver.size() > 0)
+	{
+		AddLineOfTextToFile(archiver);
+		archiver = archiverMap.NextArchiver();
+	}
+}
+
+ArchiverMap FileController::LoadArchiverMapFromFile()
+{
+	ArchiverMap archiverMap = ArchiverMap();
+	std::string lineOfText = GetLineOfTextFromFile();
+	while (lineOfText.size() > 0)
+	{
+		archiverMap.AddArchiver(lineOfText);
+		lineOfText = GetLineOfTextFromFile();
+	}
+	return archiverMap;
+}
+
 ProjectSettings FileController::LoadProjectSettingsFromFile()
 {
 	std::string projectName = "";
 	std::string archiver = "";
-	int recordNumber=1;
-	int numberOfFile=0;
+	int recordNumber = 1;
+	int numberOfFile = 0;
 	std::string file = "";
 	std::vector<std::string> listOfFile;
 
@@ -80,7 +103,7 @@ bool FileController::IsFileCorrect()
 {
 	file >> std::noskipws;
 	unsigned line_count = std::count(std::istream_iterator<char>(file), std::istream_iterator<char>(), '\n');
-	
+
 	file >> std::skipws;
 	file.clear();
 	file.seekg(0, std::ios::beg);

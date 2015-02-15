@@ -5,14 +5,19 @@
 int main(int __argc, char *__argv[])
 {
 	std::string command;
-	std::string projectName;
+	std::string firstParameter;
+	std::string secondParameter;
 	if (__argc > 1)
 	{
 		command = std::string(__argv[1]);
 	}
 	if (__argc > 2)
 	{
-		projectName = std::string(__argv[2]);
+		firstParameter = std::string(__argv[2]);
+	}
+	if (__argc > 3)
+	{
+		secondParameter = std::string(__argv[3]);
 	}
 
 	switch (__argc)
@@ -29,29 +34,41 @@ int main(int __argc, char *__argv[])
 	case 3:
 		if (command.compare("create") == 0)
 		{
-			ProgramController::CreateProject(projectName);
+			ProgramController::CreateProject(firstParameter);
 		}
 		else if (command.compare("list") == 0)
 		{
-			ProgramController::ListProject(projectName);
+			ProgramController::ListProject(firstParameter);
 		}
 		else if (command.compare("remove") == 0)
 		{
-			ProgramController::RemoveProject(projectName);
+			ProgramController::RemoveProject(firstParameter);
+		}
+		else if (command.compare("remove-archiver"))
+		{
+			ProgramController::RemoveArchiver(firstParameter);
 		}
 		break;
 	case 4:
 		if (command.compare("add-file") == 0)
 		{
-			ProgramController::AddFileToProject(projectName, std::string(__argv[3]));
+			ProgramController::AddFileToProject(firstParameter, secondParameter);
 		}
 		else if (command.compare("remove-file") == 0)
 		{
-			ProgramController::RemoveFileFromProject(projectName, std::string(__argv[3]));
+			ProgramController::RemoveFileFromProject(firstParameter, secondParameter);
 		}
 		else if (command.compare("rename") == 0)
 		{
-			ProgramController::ChangeProjectName(projectName, std::string(__argv[3]));
+			ProgramController::ChangeProjectName(firstParameter, secondParameter);
+		}
+		else if (command.compare("add-archiver"))
+		{
+			ProgramController::AddArchiver(firstParameter, secondParameter);
+		}
+		else if (command.compare("change-archiver"))
+		{
+			ProgramController::ChangeArchiver(firstParameter, secondParameter);
 		}
 		break;
 	default:

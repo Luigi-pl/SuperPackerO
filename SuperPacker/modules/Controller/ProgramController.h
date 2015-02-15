@@ -33,5 +33,19 @@ public:
 	remove %p - remove project (%p) settings file
 	*/
 	static void RemoveProject(std::string);
+
+	/*Implementation of console command:
+	add-archiver %a %c - add archiver (%a) to list of available archivers, archiver (%a) use console command (%c) to pack files
+	*/
+	static void AddArchiver(std::string, std::string);
+	/*Implementation of console command:
+	change-archiver %a %c - change archiver (%a) console command to (%c) to pack files
+	*/
+	static void ChangeArchiver(std::string, std::string);
+	/*Implementation of console command:
+	remove-archiver %a - remove archiver (%a) from list of available archivers
+	*/
+	static void RemoveArchiver(std::string);
+
 };
 

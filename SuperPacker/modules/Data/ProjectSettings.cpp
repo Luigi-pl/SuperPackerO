@@ -8,6 +8,10 @@ ProjectSettings::ProjectSettings(std::string projectName, std::string archiver, 
 	this->numberOfFile = numberOfFile;
 	this->listOfFile = listOfFile;
 }
+ProjectSettings::~ProjectSettings()
+{
+	listOfFile.clear();
+}
 std::string ProjectSettings::GetProjectName()
 {
 	return projectName;
@@ -49,7 +53,7 @@ bool ProjectSettings::RemoveFileFromListOfFile(std::string fileToRemove)
 		if (listOfFile[i].length() == fileToRemove.length() &&
 			listOfFile[i].find(fileToRemove.c_str(), 0, listOfFile[i].length()) != std::string::npos)
 		{
-			listOfFile.erase(listOfFile.begin()+i);
+			listOfFile.erase(listOfFile.begin() + i);
 			numberOfFile--;
 			return true;
 		}

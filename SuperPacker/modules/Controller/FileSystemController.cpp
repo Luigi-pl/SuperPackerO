@@ -8,12 +8,12 @@ void FileSystemController::CreateFile(std::string fileToCreate)
 }
 bool FileSystemController::RenameFile(std::string oldFileName, std::string newFileName)
 {
-	if (rename( (oldFileName + ".txt").c_str(),
-				(newFileName + ".txt").c_str())) return true;
+	if (rename((oldFileName + ".txt").c_str(),
+		(newFileName + ".txt").c_str()) == 0) return true;
 	return false;
 }
 bool FileSystemController::DeleteFile(std::string fileToDelete)
 {
-	if (remove((fileToDelete + ".txt").c_str())) return true;
+	if (remove((fileToDelete + ".txt").c_str()) == 0) return true;
 	return false;
 }

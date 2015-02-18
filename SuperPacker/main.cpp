@@ -44,9 +44,13 @@ int main(int __argc, char *__argv[])
 		{
 			ProgramController::RemoveProject(firstParameter);
 		}
-		else if (command.compare("remove-archiver"))
+		else if (command.compare("remove-archiver") == 0)
 		{
 			ProgramController::RemoveArchiver(firstParameter);
+		}
+		else if (command.compare("execute") == 0)
+		{
+			ProgramController::ExecuteProject(firstParameter);
 		}
 		break;
 	case 4:
@@ -62,11 +66,11 @@ int main(int __argc, char *__argv[])
 		{
 			ProgramController::ChangeProjectName(firstParameter, secondParameter);
 		}
-		else if (command.compare("add-archiver"))
+		else if (command.compare("add-archiver") == 0)
 		{
 			ProgramController::AddArchiver(firstParameter, secondParameter);
 		}
-		else if (command.compare("change-archiver"))
+		else if (command.compare("change-archiver") == 0)
 		{
 			ProgramController::ChangeArchiver(firstParameter, secondParameter);
 		}

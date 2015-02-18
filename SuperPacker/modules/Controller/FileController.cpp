@@ -47,10 +47,11 @@ void FileController::ChangeMode()
 }
 void FileController::SaveArchiverMapToFile(ArchiverMap archiverMap)
 {
+	archiverMap.ResetList();
 	std::string archiver = archiverMap.NextArchiver();
 	while (archiver.size() > 0)
 	{
-		AddLineOfTextToFile(archiver);
+		AddLineOfTextToFile("\"" + archiver + "\"");
 		archiver = archiverMap.NextArchiver();
 	}
 }
@@ -59,10 +60,14 @@ ArchiverMap FileController::LoadArchiverMapFromFile()
 {
 	ArchiverMap archiverMap = ArchiverMap();
 	std::string lineOfText = GetLineOfTextFromFile();
-	while (lineOfText.size() > 0)
+	while (lineOfText.compare("ERROR") != 0 && lineOfText.size() > 2)
 	{
+		lineOfText.erase(0, 1);
+		lineOfText.erase(lineOfText.length() - 1, 1);
+
 		archiverMap.AddArchiver(lineOfText);
 		lineOfText = GetLineOfTextFromFile();
+		
 	}
 	return archiverMap;
 }
@@ -122,7 +127,6 @@ void FileController::AddLineOfTextToFile(T lineOfText)
 	file << lineOfText << std::endl;
 }
 
-int GetNumberFromFile();
 std::string FileController::GetLineOfTextFromFile()
 {
 	if (!file.good())

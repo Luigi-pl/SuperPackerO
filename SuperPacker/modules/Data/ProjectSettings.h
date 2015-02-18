@@ -5,6 +5,7 @@
 class ProjectSettings
 {
 public:
+	ProjectSettings();
 	ProjectSettings(std::string, std::string, int, int, std::vector<std::string>);
 	~ProjectSettings();
 	/*Method returns project name*/

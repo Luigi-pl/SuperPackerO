@@ -26,6 +26,9 @@ public:
 	/*Method changes archiver on list*/
 	void ChangeArchiver(std::string, std::string);
 
+	/*Method returns command to pack file used by archiver given in parameter*/
+	std::string getCommand(std::string);
+
 private:
 	/*Archiver map, key = archiver name, value = archiver command to pack file*/
 	std::map<std::string, std::string> archiverMap;

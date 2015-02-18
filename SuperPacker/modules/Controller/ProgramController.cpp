@@ -3,6 +3,7 @@
 #include "FileController.h"
 #include "../Data/ProjectSettings.h"
 #include "../Data/ArchiverMap.h"
+#include "../Data/ArchiverExecutor.h"
 
 #define archiverFile "archiverFile" 
 
@@ -22,7 +23,7 @@ void ProgramController::ListAvailableCommand()
 	std::cout << " remove-file %p %f - remove file f from project settings file p" << std::endl;
 	std::cout << " rename %op %np - change project name od to new project name np" << std::endl;
 	std::cout << " remove %p - remove project p settings file" << std::endl;
-
+	std::cout << " execute %p - execute packing to archive project p" << std::endl;
 
 	std::cout << " add-archiver %a %c - add archiver a to list of available archivers, archiver a use console command c to pack files" << std::endl;
 	std::cout << " change-archiver %a %c - change archiver a console command to c" << std::endl;
@@ -113,28 +114,45 @@ void ProgramController::ChangeProjectName(std::string oldProjectName, std::strin
 	}
 
 }
+void ProgramController::ExecuteProject(std::string projectName)
+{
+	FileController archiverListFile(archiverFile, false);
+	FileController projectSettingsFile(projectName, false);
+	ArchiverMap archiverMap = ArchiverMap();
+	ProjectSettings projectSettings = ProjectSettings();
+	if (archiverListFile.IsFileOpen())
+	{
+		archiverMap = archiverListFile.LoadArchiverMapFromFile();
+	}
+
+	if (projectSettingsFile.IsFileOpen() && projectSettingsFile.IsFileCorrect())
+	{
+		projectSettings = projectSettingsFile.LoadProjectSettingsFromFile();
+	}
+	ArchiverExecutor executor(archiverMap, projectSettings);
+	executor.ExecutePacking();
+}
 void ProgramController::RemoveProject(std::string projectName)
 {
 	FileSystemController::DeleteFile(projectName);
 }
 void ProgramController::AddArchiver(std::string key, std::string value)
 {
-	FileController archiverListFile(archiverFile, true);
+	FileController archiverListFile(archiverFile, false);
 
-	if (archiverListFile.IsFileOpen() && archiverListFile.IsFileCorrect())
+	if (archiverListFile.IsFileOpen())
 	{
 		ArchiverMap archiverMap = archiverListFile.LoadArchiverMapFromFile();
 		archiverMap.AddArchiver(key, value);
-
 		archiverListFile.ChangeMode();
 		archiverListFile.SaveArchiverMapToFile(archiverMap);
 	}
 }
 void ProgramController::ChangeArchiver(std::string key, std::string value)
 {
-	FileController archiverListFile(archiverFile, true);
+	FileController archiverListFile(archiverFile, false);
 
-	if (archiverListFile.IsFileOpen() && archiverListFile.IsFileCorrect())
+	if (archiverListFile.IsFileOpen())
 	{
 		ArchiverMap archiverMap = archiverListFile.LoadArchiverMapFromFile();
 		archiverMap.ChangeArchiver(key, value);
@@ -145,9 +163,9 @@ void ProgramController::ChangeArchiver(std::string key, std::string value)
 }
 void ProgramController::RemoveArchiver(std::string key)
 {
-	FileController archiverListFile(archiverFile, true);
+	FileController archiverListFile(archiverFile, false);
 
-	if (archiverListFile.IsFileOpen() && archiverListFile.IsFileCorrect())
+	if (archiverListFile.IsFileOpen())
 	{
 		ArchiverMap archiverMap = archiverListFile.LoadArchiverMapFromFile();
 		archiverMap.RemoveArchiver(key, true);

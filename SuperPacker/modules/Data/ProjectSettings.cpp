@@ -1,5 +1,12 @@
 #include "ProjectSettings.h"
-
+ProjectSettings::ProjectSettings()
+{
+	this->projectName = "";
+	this->archiver = "";
+	this->recordNumber = 1;
+	this->numberOfFile = 0;
+	this->listOfFile = std::vector<std::string>();
+}
 ProjectSettings::ProjectSettings(std::string projectName, std::string archiver, int recordNumber, int numberOfFile, std::vector<std::string> listOfFile)
 {
 	this->projectName = projectName;
